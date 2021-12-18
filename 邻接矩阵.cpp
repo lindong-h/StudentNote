@@ -85,14 +85,36 @@ void MatToList(AdjMatrix &A , AdjList &B)
     {
         B.adjlist[i].firstEdge = nullptr;
     }
-    
-    for(int i = 0 ; i < vertexNum ; i++)
+    // 矩阵的某一行就是 该节点的邻接点，将其加入到 该节点的边表当中。
+    for(int i = 0 ; i < A.vertexNum ; i++)
         for(int j = 0 ; j < i ; j++)
             if(A.edge[i][j] != 0)
             {
                 p = new EdgeNode;
                 p -> adjvex = j;
-                p -> next = B.adjlist[i].first;
+                //  插入 adjlist[i] 的边表当中
+                p -> next = B.adjlist[i].firstEdge;
                 B.adjlist[i].firstEdge = p;
             }
+}
+
+
+//  统计出度为 0 的方法
+int Sumzero(AdjMatrix A) // 存储结构是 邻接矩阵
+{
+    int count;
+    for(int i = 0 ; i < A.vertexNum ; i++)
+    {
+        int flag = 0;
+        for(int j = 0 ; j < A.vertexNum ; j++)
+        {
+            if(edge[i][j] != 0)
+            {
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0) count++;
+    }
+    return count;
 }

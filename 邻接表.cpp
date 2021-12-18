@@ -95,3 +95,27 @@ ALGraph<DataType>::BFS(int v)
         }
     }
 }
+
+// 邻接表转化为邻接矩阵
+void ListToMat(AdjList &A, AdjMatList &B)
+{
+    A.vertexNum = B.vertexNum;
+    A.edgeNum = B.edgeNum;
+
+    //  初始化邻接矩阵
+    for(int i = 0 ; i < A.vertexNum ; i++)
+        for(int j = 0 ; j < A.vertexNum ; j++)
+            A.edge[i][j] = 0;
+
+    // 遍历边表的节点，修改 该节点所在行的值
+    for(int i = 0 ; i < A.vertexNum ; i++)
+    {
+        p = B.adjlist[i].firstEdge;
+        while(p)
+        {
+            j = p -> adjvex;
+            a[i][j] = 1;
+            p = p -> next;
+        }
+    }
+}
