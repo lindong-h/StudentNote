@@ -27,7 +27,7 @@ private:
     VertexNode<DataType> adjlist[N];    // 存放顶点表的数组
     int vertexNum , edgeNum;            // 图中顶点数和边数
 }
-
+//  建立邻接表
 template <typename DataType>
 ALGraph<DataType>:: ALGraph(DataType a[] , int n, int e)
 {
@@ -51,9 +51,9 @@ ALGraph<DataType>:: ALGraph(DataType a[] , int n, int e)
     }
 
 }
-
+//  深度优先遍历邻接表
 template <typename DataType>
-ALGraph<DataType>::DFS(int v)
+ALGraph<DataType>::DFS(int v) //     memset(st , 0 , sizeof st);
 {
     EdgeNode *p = nullptr;
     cout << adjlist[v].vertex << endl;
@@ -68,9 +68,9 @@ ALGraph<DataType>::DFS(int v)
         p = p -> next;
     }
 }
-
+// 宽度优先遍历邻接表
 template <typename DataType>
-ALGraph<DataType>::BFS(int v)
+ALGraph<DataType>::BFS(int v) //     memset(st , 0 , sizeof st);
 {
     int q[N] , hh = -1 , tt = -1; // 初始化队列
     EdgeNode* p = nullptr;
@@ -116,6 +116,66 @@ void ListToMat(AdjList &A, AdjMatList &B)
             j = p -> adjvex;
             a[i][j] = 1;
             p = p -> next;
+        }
+    }
+}
+
+//  建立逆邻接表
+void InverseList(AdjList A , AdjList B)
+{
+    B.vertexNum = A.vertexNum;
+    B.edgeNum = A.edgeNum;
+
+    for(int i = 0 ; i < A.vertexNum ; i++)
+        B.adjlist[i].firstEdge = nullptr;
+
+    EdgeNode *p1 = new EdgeNode;
+    EdgeNode *p2 = nullptr;
+    for(int i = 0 ; i < A.vertexNum ; i++)
+    {
+        p1 = A.adjlist.firstEdge;
+        while(p1)
+        {
+            j = p1 -> adjvex;
+            p2 = new EdgeNode;
+
+            p2 -> adjvex = i;
+            p2 -> next = B.adjlist[j].firstEdge;
+            B.adjlist[j].firstEdge = p2;
+            p1 = p1 -> next;
+        }
+    }
+}
+
+// 判断路径 DFS
+int DFS(int i , int j) // 判断 i 到 j 之间是否存在路径 memset(st , 0 , sizeof st);
+{   
+    
+}
+
+// 判断路径 BFS
+int BFS(int i , int j) // 判断 i 到 j 之间是否存在路径 memset(st , 0 , sizeof st);
+{   
+    int q[N], hh = -1 , tt = -1;
+    st[i] = 1;
+    q[++tt] = i;
+
+    int flag = 0;
+    while(hh != tt || flag == 0)
+    {
+        i = q[++hh];
+        auto p = adjlist[i].firstEdge;
+
+        while(p)
+        {
+            auto t = p -> adjvex;
+            if(t == j) flag = 1;
+            else if(st[t] == 0)
+            {
+                st[t] == 1;
+                q[++tt] = t;
+            }
+            else p = p -> next;
         }
     }
 }

@@ -15,7 +15,7 @@ private:
     int edge[N][N];      //  存储图的边 
     int vertexNum , edgeNum;  //  节点数 ， 边数
 }
-
+//  建立邻接矩阵
 template <typename DataType>
 MGraph<DataType>:: MGraph(DataType a[],int n , int e)
 {
@@ -33,9 +33,9 @@ MGraph<DataType>:: MGraph(DataType a[],int n , int e)
         edge[i][j] = 1 , edge[j][i] = 1 ; // 无向图
     }
 }
-
+//  深度优先遍历邻接矩阵
 template <typename DataType>
-MGraph<DataType>::DFS(int v)
+MGraph<DataType>::DFS(int v) //    memset(st , 0 , sizeof st);
 {
     cout << vertex[v] << endl; // 输出遍历到的节点
     st[v] = 1; // 该点已遍历
@@ -48,9 +48,9 @@ MGraph<DataType>::DFS(int v)
     }
     
 }
-
+//  宽度优先遍历
 template <typename DataType>
-MGraph<DataType>::BFS(int v)
+MGraph<DataType>::BFS(int v) //     memset(st , 0 , sizeof st);
 {
     int q[N]; // 定义队列
     int hh = -1 , tt = -1; // 初始化队列
